@@ -1,0 +1,28 @@
+#!/bin/bash
+
+BACKUP_DIR="$HOME/backup_terminal"
+ARCHIVE="$HOME/backup_terminal.tar.gz"
+
+echo ">> Criando pasta de backup..."
+mkdir -p "$BACKUP_DIR"
+
+echo ">> Backup do Konsole..."
+cp "$HOME/.config/konsolerc" "$BACKUP_DIR/" 2>/dev/null
+cp -r "$HOME/.local/share/konsole" "$BACKUP_DIR/" 2>/dev/null
+
+echo ">> Backup do ZSH..."
+cp "$HOME/.zshrc" "$BACKUP_DIR/" 2>/dev/null
+cp "$HOME/.p10k.zsh" "$BACKUP_DIR/" 2>/dev/null
+cp -r "$HOME/.oh-my-zsh" "$BACKUP_DIR/" 2>/dev/null
+cp -r "$HOME/.config/zsh" "$BACKUP_DIR/" 2>/dev/null
+
+echo ">> Backup das fontes..."
+mkdir -p "$BACKUP_DIR/fonts"
+cp -r "$HOME/.local/share/fonts" "$BACKUP_DIR/fonts/" 2>/dev/null
+
+echo ">> Compactando tudo em $ARCHIVE ..."
+tar -czvf "$ARCHIVE" -C "$HOME" backup_terminal
+
+echo ">> Backup concluído!"
+echo "Arquivo gerado: $ARCHIVE"
+
